@@ -88,7 +88,36 @@ app.get("/getuserRegister", async (req, res) => {
     res.status(500).json({ message: "Failed to fetch the users" });
   }
 });
+app.get("/moviedata/:id", async (req, res) => {
+  const { id } = req.params;
 
+  try {
+    const KEY = "7ee71635";
+    const response = await fetch(
+      `https://www.omdbapi.com/?apikey=${KEY}&i=${id}`
+    );
+    const data = await response.json();
+    console.log(data);
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch the movie data" });
+  }
+});
+app.get("/moviedatasearch/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const KEY = "7ee71635";
+    const response = await fetch(
+      `https://www.omdbapi.com/?apikey=${KEY}&s=${id}`
+    );
+    const data = await response.json();
+    console.log(data);
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch the movie data" });
+  }
+});
 app.patch("/playlist/:id", async (req, res) => {
   const { id } = req.params;
   const { isPublic } = req.body;
