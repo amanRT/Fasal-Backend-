@@ -7,20 +7,17 @@ const { MovieListModel } = require("./models/movieList");
 const { PlayListModel } = require("./models/playlist");
 
 const numSaltRounds = 8;
-const connectDB = require("./db/conn");
-connectDB();
+require("./db/conn");
 
 const app = express();
-app.use(
-  cors({
-    origin: "https://fasal-frontend.vercel.app",
-    credentials: true,
-  }),
-);
-app.options("*", cors());
+app.use(cors());
 app.use(express.json());
-
+const PORT = 3000;
 const JWT_SECRET = "your_secret_key"; // Replace with your secret key
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+});
 
 app.post("/userRegister", async (req, res) => {
   const { fname, lname, email, password } = req.body;
@@ -223,4 +220,3 @@ app.delete("/playlist/:id", async (req, res) => {
     res.status(500).json({ message: "Failed to delete playlist", error });
   }
 });
-module.exports = app;
