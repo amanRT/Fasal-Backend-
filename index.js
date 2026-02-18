@@ -6,14 +6,22 @@ const jwt = require("jsonwebtoken");
 const { MovieListModel } = require("./models/movieList");
 const { PlayListModel } = require("./models/playlist");
 
-const numSaltRounds = 8;
 require("./db/conn");
 
 const app = express();
-app.use(cors());
+
+app.use(
+  cors({
+    origin: "https://fasal-frontend.vercel.app",
+    credentials: true,
+  }),
+);
+
+app.options("*", cors());
+
 app.use(express.json());
-const PORT = 3000;
-const JWT_SECRET = "your_secret_key"; // Replace with your secret key
+
+const JWT_SECRET = "your_secret_key";
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
@@ -94,7 +102,7 @@ app.get("/moviedata/:id", async (req, res) => {
   try {
     const KEY = "7ee71635";
     const response = await fetch(
-      `https://www.omdbapi.com/?apikey=${KEY}&i=${id}`
+      `https://www.omdbapi.com/?apikey=${KEY}&i=${id}`,
     );
     const data = await response.json();
     console.log(data);
@@ -109,7 +117,7 @@ app.get("/moviedatasearch/:id", async (req, res) => {
   try {
     const KEY = "7ee71635";
     const response = await fetch(
-      `https://www.omdbapi.com/?apikey=${KEY}&s=${id}`
+      `https://www.omdbapi.com/?apikey=${KEY}&s=${id}`,
     );
     const data = await response.json();
     console.log(data);
