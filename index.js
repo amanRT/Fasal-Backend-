@@ -7,7 +7,8 @@ const { MovieListModel } = require("./models/movieList");
 const { PlayListModel } = require("./models/playlist");
 
 const numSaltRounds = 8;
-require("./db/conn");
+const connectDB = require("./db/conn");
+connectDB();
 
 const app = express();
 app.use(
