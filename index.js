@@ -18,12 +18,8 @@ app.use(
 );
 app.options("*", cors());
 app.use(express.json());
-const PORT = 3000;
-const JWT_SECRET = "your_secret_key"; // Replace with your secret key
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
+const JWT_SECRET = "your_secret_key"; // Replace with your secret key
 
 app.post("/userRegister", async (req, res) => {
   const { fname, lname, email, password } = req.body;
